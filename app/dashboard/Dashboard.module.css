@@ -41,3 +41,8 @@
   padding-top: var(--mantine-spacing-xl);
   padding-bottom: var(--mantine-spacing-xl);
 }
+
+.content {
+  grid-column: 2/5;
+  grid-row: 3/20;
+}

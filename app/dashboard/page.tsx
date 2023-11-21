@@ -10,6 +10,7 @@ import classes from "./Dashboard.module.css";
 import NaviHeader from "@/components/NaviHeader/NaviHeader";
 import UserInfo from "@/components/UserInfo/UserInfo";
 import CSS from "csstype";
+import { UserContent } from "@/components/DashboardContent/DashboardContent";
 
 const NaviItems = [
   {
@@ -17,13 +18,19 @@ const NaviItems = [
     icon: Home,
     initiallyOpened: true,
     link: "/",
+  },
+  { label: "知识检索", initiallyOpened: false, icon: Book, link: "/" },
+  {
+    label: "自主学习",
+    initiallyOpened: false,
+    icon: Abc,
+    link: "/",
     children: [
-      { label: "钱包", link: "/" },
-      { label: "朋友", link: "/" },
+      { label: "学习路径", link: "/" },
+      { label: "考试", link: "/" },
     ],
   },
-  { label: "课程", initiallyOpened: false, icon: Book, link: "/" },
-  { label: "考试", initiallyOpened: false, icon: Abc, link: "/" },
+  { label: "作业", initiallyOpened: false, icon: Abc, link: "/" },
 ];
 
 const mockUser: UserInfoProps = {
@@ -38,9 +45,11 @@ const Dashboard = () => {
       <div className={classes.header} style={{ gridColumn: 1, gridRow: "1/3" }}>
         <Logo size="100px" />
       </div>
-      <Navi style={{ gridColumn: 1, gridRow: "3/18" }} />
-      <NaviHeader style={{ gridColumn: "2 / 5", gridRow: "1/3" }} />
-      <div className={classes.content}></div>
+      <Navi style={{ gridColumn: 1, gridRow: "3/20" }} />
+      <NaviHeader style={{ gridColumn: "2 / 6", gridRow: "1/3" }} />
+      <div key="content" style={{ gridColumn: "2/6", gridRow: "3/21" }}>
+        <UserContent />
+      </div>
     </div>
   );
 };
@@ -54,7 +63,7 @@ const Navi = (props: NaviProps) => {
     <LinkGroup {...item} key={item.label} />
   ));
   return (
-    <Stack justify="space-between" {...props}>
+    <Stack justify="space-between" {...props} className={classes.bar}>
       <nav className={classes.navi}>
         <ScrollArea className={classes.link}>
           <div className={classes.linksInner}>{links}</div>

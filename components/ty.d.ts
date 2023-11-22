@@ -7,11 +7,6 @@ interface UserInfoProps {
   [propName: string]: any;
 }
 
-interface ProgressCardProps {
-  style?: React.CSSProperties;
-  className?: string;
-}
-
 interface UserButtonProps {
   label: string;
   leftSection?: React.ReactNode;

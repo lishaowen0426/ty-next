@@ -1,15 +1,31 @@
 import classes from "./DashboardContent.module.css";
 import ProgressCard from "../TyCard/ProgressCard/ProgressCard";
+import NotificationCard from "../TyCard/NotificationCard/NotificationCard";
 import { Group, Stack } from "@mantine/core";
 
 const UpperRowCardList = [
-  <ProgressCard key={"progress"} className={classes["first-row"]} style={{}} />,
-  <ProgressCard className={classes["first-row"]} style={{}} />,
+  <ProgressCard
+    key={"progress"}
+    className={classes["first-row"]}
+    style={{}}
+    title="学习进度"
+  />,
+  <NotificationCard
+    key={"notification"}
+    className={classes["first-row"]}
+    style={{}}
+    title="通知"
+  />,
   <ProgressCard className={classes["first-row"]} style={{}} />,
 ];
 const LowerRowCardList = [
   <ProgressCard className={classes["second-row"]} style={{}} />,
-  <ProgressCard className={classes["second-row"]} style={{}} />,
+  <NotificationCard
+    key={"notification"}
+    className={classes["second-row"]}
+    style={{}}
+    title="通知"
+  />,
 ];
 
 export const UserContent = () => {

@@ -2,7 +2,7 @@ import classes from "./ProgressCard.module.css";
 import { Text, Card, RingProgress, Group, Button } from "@mantine/core";
 import UserButton from "../../UserButton/UserButton";
 import { ArrowBadgeRight, AlignRight } from "tabler-icons-react";
-import TyCard from "../TyCard";
+import { TyCard, TyCardProps } from "../TyCard";
 
 interface Progress {
   label: string;
@@ -14,7 +14,7 @@ const progressItems = [
   { label: "待学习", value: 32 },
 ];
 
-export default function ProgressCard(props: ProgressCardProps = {}) {
+export default function ProgressCard(props: TyCardProps = {}) {
   const completed = progressItems[0].value;
   const total = progressItems[1].value + completed;
   const labels = progressItems.map((item: Progress) => {
@@ -32,9 +32,6 @@ export default function ProgressCard(props: ProgressCardProps = {}) {
 
   return (
     <TyCard {...props}>
-      <Text fz="xl" fw="600">
-        学习进度
-      </Text>
       <Group
         style={{
           justifyContent: "space-between",

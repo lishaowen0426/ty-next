@@ -1,4 +1,3 @@
-import "./global.css";
 import "@mantine/core/styles.layer.css";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";

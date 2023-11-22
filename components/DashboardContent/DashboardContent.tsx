@@ -10,12 +10,7 @@ const UpperRowCardList = [
     style={{}}
     title="学习进度"
   />,
-  <NotificationCard
-    key={"notification"}
-    className={classes["first-row"]}
-    style={{}}
-    title="通知"
-  />,
+  <ProgressCard className={classes["first-row"]} style={{}} />,
   <ProgressCard className={classes["first-row"]} style={{}} />,
 ];
 const LowerRowCardList = [

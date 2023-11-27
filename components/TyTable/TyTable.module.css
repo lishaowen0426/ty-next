@@ -1,6 +1,37 @@
-.pagination:first-child {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+.container {
+  height: "100%";
+}
+
+.table {
+  width: 100%;
+  height: inherit;
+  & tbody {
+    display: block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
+    & tr {
+      display: block;
+      width: 100%;
+    }
+    & td {
+      display: inline-block;
+      width: calc(100% / 3);
+    }
+  }
+  & thead {
+    display: block;
+    & tr {
+      display: block;
+      width: 100%;
+    }
+    & th {
+      display: inline-block;
+      width: calc(100% / 3);
+    }
+  }
+}
+
+.page {
 }

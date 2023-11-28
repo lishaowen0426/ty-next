@@ -1,0 +1,12 @@
+.container {
+  padding: var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  border: calc(0.0625rem * var(--mantine-scale)) solid
+    var(--mantine-color-gray-3);
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.children {
+  height: calc(100% - 3.17rem);
+}

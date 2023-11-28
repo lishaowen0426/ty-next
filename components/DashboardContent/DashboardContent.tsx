@@ -2,6 +2,7 @@ import classes from "./DashboardContent.module.css";
 import ProgressCard from "../TyCard/ProgressCard/ProgressCard";
 import NotificationCard from "../TyCard/NotificationCard/NotificationCard";
 import { Group, Stack } from "@mantine/core";
+import { TyPaper } from "../TyCard/TyCard";
 
 const UpperRowCardList = [
   <ProgressCard
@@ -14,31 +15,40 @@ const UpperRowCardList = [
   <ProgressCard className={classes["first-row"]} style={{}} />,
 ];
 const LowerRowCardList = [
-  <ProgressCard className={classes["second-row"]} style={{}} />,
+  <TyPaper title={"学习"} className={classes["second-row"]} />,
   <NotificationCard
     key={"notification"}
     className={classes["second-row"]}
-    style={{}}
     title="通知"
   />,
 ];
 
 export const UserContent = () => {
   return (
-    <Stack
-      justify="space-between"
-      align="stretch"
-      style={{
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <Group className={classes["content-row"]} mt="md" ml="md" mr="md">
+    <>
+      <Group
+        className={classes["content-row"]}
+        mt="md"
+        ml="md"
+        mr="md"
+        mb="sm"
+        style={{
+          height: "40%",
+        }}
+      >
         {UpperRowCardList}
       </Group>
-      <Group className={classes["content-row"]} mb="md" ml="md" mr="md">
+      <Group
+        className={classes["content-row"]}
+        mb="md"
+        ml="md"
+        mr="md"
+        style={{
+          height: "55%",
+        }}
+      >
         {LowerRowCardList}
       </Group>
-    </Stack>
+    </>
   );
 };

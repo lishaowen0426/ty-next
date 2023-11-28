@@ -45,13 +45,14 @@ export function TyTable<ItemType extends object>(
     );
   });
 
-  const Pagination = () => (
+  const Pagination = (props: any) => (
     <Group
       style={{
         flexWrap: "nowrap",
         width: "100%",
         justifyContent: "flex-end",
       }}
+      {...props}
     >
       <Select
         placeholder="数量"
@@ -70,21 +71,21 @@ export function TyTable<ItemType extends object>(
           }
         }}
         onNextEvent={(e) => {
-          setPage((p) => (p > 0 ? p - 1 : 0));
+          setPage((p) => p + 1);
         }}
       />
     </Group>
   );
 
   return (
-    <div className={classes["container"]}>
+    <>
       <Table {...props} className={classes["table"]}>
         <Table.Thead>
           <Table.Tr key="header">{headers}</Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
-      <Pagination />
-    </div>
+      <Pagination className={classes["page"]} />
+    </>
   );
 }

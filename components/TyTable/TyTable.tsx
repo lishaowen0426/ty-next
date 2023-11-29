@@ -1,25 +1,89 @@
 import classes from "./TyTable.module.css";
-import { Table, TableProps, Group, Select, Stack } from "@mantine/core";
+import {
+  Table,
+  TableProps,
+  Group,
+  Card,
+  Select,
+  Menu,
+  ActionIcon,
+  Paper,
+  Text,
+  Button,
+  ButtonProps,
+} from "@mantine/core";
 import { useState, useEffect } from "react";
 import { PageButton } from "../UserButton/UserButton";
+import { Trash, Eye, DotsVertical } from "tabler-icons-react";
 
 const rowCountData = [10, 20, 50];
 
-export interface TyTableProps<ItemType> extends TableProps {
+export interface Notification {
+  title: string;
+  sender: string;
+  date: string;
+  content: string;
+}
+
+export interface TyNotificationTableProps extends TableProps {
   headers: string[];
-  dataUpdater: (start: number, count?: number) => ItemType[];
+  dataUpdater: (start: number, count?: number) => Notification[];
   initialRows?: number;
 }
 
-export function TyTable<ItemType extends object>(
-  props: TyTableProps<ItemType>
-) {
-  const [data, setData] = useState<ItemType[]>([]);
+const MessageCard = ({ text }: { text: string }) => {
+  return (
+    <Card className={classes["message"]}>
+      <Text>{text}</Text>
+    </Card>
+  );
+};
+
+interface TyNotificationTableActionProps
+  extends React.ComponentPropsWithoutRef<"button"> {
+  id: string;
+  onPreviewClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onDeleteClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const NotificationAction = (props: TyNotificationTableActionProps) => {
+  return (
+    <Menu withinPortal position="bottom-end" shadow="sm">
+      <Menu.Target>
+        <ActionIcon variant="subtle" color="gray">
+          <DotsVertical size={18} />
+        </ActionIcon>
+      </Menu.Target>
+
+      <Menu.Dropdown>
+        <Menu.Item
+          leftSection={<Eye size={18} />}
+          id={props.id && props.id.toString()}
+          onClick={props.onPreviewClick}
+        >
+          展开
+        </Menu.Item>
+        <Menu.Item
+          leftSection={<Trash size={18} />}
+          id={props.id && props.id.toString()}
+          onClick={props.onDeleteClick}
+          color="red"
+        >
+          删除
+        </Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
+  );
+};
+
+export function TyNotificationTable(props: TyNotificationTableProps) {
+  const [data, setData] = useState<Notification[]>([]);
   const [page, setPage] = useState(0);
   const [rowCount, setRowCount] = useState(
     props.initialRows || rowCountData[0]
   );
   const [totalRows, setTotalRows] = useState(0);
+  const [rowState, setRowState] = useState<boolean[]>([]);
 
   useEffect(() => {}, []);
 
@@ -28,6 +92,7 @@ export function TyTable<ItemType extends object>(
   }, [page, rowCount]);
 
   const headers = props.headers.map((h) => <Table.Th>{h}</Table.Th>);
+  headers.push(<Table.Th></Table.Th>);
 
   let rows = new Array(rowCount).fill(
     <Table.Tr>
@@ -35,13 +100,44 @@ export function TyTable<ItemType extends object>(
     </Table.Tr>
   );
 
+  const onPreviewClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    let id = parseInt((event.currentTarget as Element).id);
+    const state = [...rowState];
+    state[id] = state[id] ?? false;
+
+    state[id] = !state[id];
+    console.log(id);
+    console.log(state);
+
+    setRowState(state);
+  };
+  const onDeleteClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    let id = (event.currentTarget as Element).id;
+    console.log(id);
+  };
+
   data.forEach((v, i) => {
     rows[i] = (
-      <Table.Tr>
-        {Object.entries(v).map(([_, v], index) => (
-          <Table.Td>{v}</Table.Td>
-        ))}
-      </Table.Tr>
+      <>
+        <Table.Tr id={i.toString()}>
+          {Object.entries(v).map(([_, v], index) =>
+            index != 3 ? (
+              <Table.Td>
+                <Text truncate="end">{v}</Text>
+              </Table.Td>
+            ) : (
+              <Table.Td>
+                <NotificationAction
+                  id={i.toString()}
+                  onPreviewClick={onPreviewClick}
+                  onDeleteClick={onDeleteClick}
+                />
+              </Table.Td>
+            )
+          )}
+        </Table.Tr>
+        {rowState[i] && <MessageCard text={v.content} />}
+      </>
     );
   });
 

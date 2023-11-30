@@ -1,3 +1,73 @@
 .paper {
-  max-width: 420px;
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-columns: repeat(8, calc(100% / 8));
+  grid-template-rows: repeat(20, 5%);
+}
+
+.modal {
+  & button {
+    width: 100%;
+  }
+  &.reg {
+    grid-row: 13/14;
+    grid-column: 4/5;
+    margin-right: var(--mantine-spacing-md);
+
+    & .button {
+      background: #0092ca;
+    }
+  }
+  &.login {
+    grid-row: 13/14;
+    grid-column: 5/6;
+    margin-left: var(--mantine-spacing-md);
+    & .button {
+    }
+  }
+}
+
+.ocean {
+  height: 5%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #015871;
+}
+
+.wave {
+  background: url(/wave.svg) repeat-x;
+  position: absolute;
+  width: 6400px;
+  top: -198px;
+  left: 0;
+  height: 198px;
+  transform: translate(0, 0, 0);
+  animation: wave 7s ease infinite;
+}
+
+.wave:nth-of-type(2) {
+  top: -168px;
+  animation: swell 4s ease infinite;
+  opacity: 1;
+}
+
+@keyframes wave {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -1600px;
+  }
+}
+@keyframes swell {
+  0%,
+  100% {
+    transform: translate(0, -30px);
+  }
+  50% {
+    transform: translate(0, 5px);
+  }
 }
